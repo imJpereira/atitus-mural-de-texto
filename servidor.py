@@ -10,6 +10,9 @@ class HomeHandler(RequestHandler):
 
 class SalaHandler(RequestHandler):
     def get(self, sala):
+        if sala not in rooms:
+            rooms[sala] = ""
+        print(rooms)  
         self.render("editor.html", sala=sala)
 
 def criar_app():
