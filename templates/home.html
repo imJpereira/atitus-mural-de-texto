@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Mural</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 50px; }
+        input { padding: 10px; font-size: 16px; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Mural Markdown</h1>
+    <p>Digite o nome da sala que deseja criar ou acessar:</p>
+    
+    <form onsubmit="event.preventDefault(); window.location.href = '/' + document.getElementById('sala').value;">
+        <input type="text" id="sala" placeholder="ex: reuniões" pattern="^[a-zA-Z0-9_-]{1,50}$" required title="Apenas letras, números, traços ou sublinhados. Máximo de 50 caracteres.">
+        <button type="submit">Entrar na Sala</button>
+    </form>
+</body>
+</html>
