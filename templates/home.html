@@ -2,20 +2,35 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Mural</title>
-    <style>
-        body { font-family: sans-serif; text-align: center; padding: 50px; }
-        input { padding: 10px; font-size: 16px; }
-        button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mural de texto em markdown</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <h1>Mural Markdown</h1>
-    <p>Digite o nome da sala que deseja criar ou acessar:</p>
-    
-    <form onsubmit="event.preventDefault(); window.location.href = '/' + document.getElementById('sala').value;">
-        <input type="text" id="sala" placeholder="ex: reuniões" pattern="^[a-zA-Z0-9_-]{1,50}$" required title="Apenas letras, números, traços ou sublinhados. Máximo de 50 caracteres.">
-        <button type="submit">Entrar na Sala</button>
-    </form>
+    <main class="home">
+        <p class="kicker">Mural de texto em markdown</p>
+        <h1>Escreva junto, em tempo real.</h1>
+        <p class="descricao">Entre com o nome de uma sala. Se ela ainda não existe, é criada na hora — e o texto fica disponível para todo mundo que abrir o mesmo endereço.</p>
+
+        <form id="form-sala" class="form-sala" novalidate>
+            <label for="sala">Nome da sala</label>
+            <div class="linha">
+                <input
+                    type="text"
+                    id="sala"
+                    name="sala"
+                    placeholder="aula-01"
+                    autocomplete="off"
+                    autofocus
+                    aria-invalid="false"
+                    aria-describedby="ajuda erro"
+                >
+                <button type="submit">Abrir sala</button>
+            </div>
+            <p id="ajuda" class="ajuda">Letras, números, hífen e underline. Até 50 caracteres.</p>
+            <p id="erro" class="erro" role="alert" hidden>Use apenas letras, números, hífen e underline — até 50 caracteres.</p>
+        </form>
+    </main>
+    <script src="/static/home.js"></script>
 </body>
 </html>
