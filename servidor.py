@@ -3,7 +3,6 @@ import json
 from tornado.web import Application, RequestHandler, StaticFileHandler
 import tornado.websocket
 
-# Dicionario em memoria q guarda o estado das sala / quando reinicia o servidor o texto se perde
 rooms = {}
 
 class HomeHandler(RequestHandler):
@@ -13,7 +12,7 @@ class HomeHandler(RequestHandler):
 class SalaHandler(RequestHandler):
     def get(self, sala):
         if sala not in rooms:
-            rooms[sala] = ""
+            rooms[sala] = {"text": "", "clients": set()}
         print(rooms)  
         self.render("editor.html", sala=sala)
 
@@ -30,6 +29,18 @@ class RoomSocket(tornado.websocket.WebSocketHandler):
             "text": rooms[sala]["text"]
         }
         self.write_message(json.dumps(mensagem_init))
+
+    def on_message(self, message):
+        try:
+            dados = json.loads(message)
+            if dados.get("type") == "update":
+                novo_texto = dados.get("text", "")
+                rooms[self.sala]["text"] = novo_texto
+                for cliente in rooms[self.sala]["clients"]:
+                    if cliente != self:  
+                        cliente.write_message(message) #
+        except json.JSONDecodeError:
+            print("Mensagem inválida recebida.")    
 
     def on_close(self):
         if hasattr(self, 'sala') and self.sala in rooms:
@@ -55,4 +66,4 @@ def criar_app():
         # Rota pros arquivos estáticos (CSS, JS)
         (r"/static/(.*)", StaticFileHandler, {"path": caminho_static}),
     ], 
-    template_path=caminho_templates) # Informa o tornado onde buscar os arquivos HTML
+    template_path=caminho_templates) 
