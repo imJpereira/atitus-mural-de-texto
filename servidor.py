@@ -2,6 +2,7 @@ import os
 import json
 from tornado.web import Application, RequestHandler, StaticFileHandler
 import tornado.websocket
+from tornado.ioloop import IOLoop
 
 rooms = {}
 
@@ -20,6 +21,10 @@ class RoomSocket(tornado.websocket.WebSocketHandler):
     def open(self, sala):
         if sala not in rooms:
             rooms[sala] = {"text": "", "clients": set()}
+
+        timer = rooms[sala].pop("timer", None)
+        if timer:
+            IOLoop.current().remove_timeout(timer)
 
         self.sala = sala
         rooms[sala]["clients"].add(self)
@@ -45,6 +50,8 @@ class RoomSocket(tornado.websocket.WebSocketHandler):
     def on_close(self):
         if hasattr(self, 'sala') and self.sala in rooms:
             rooms[self.sala]["clients"].discard(self)
+            if not rooms[self.sala]["clients"]:
+                rooms[self.sala]["timer"] = IOLoop.current().call_later(30, rooms.pop, self.sala, None)
 
     def check_origin(self, origin):
         return True        
