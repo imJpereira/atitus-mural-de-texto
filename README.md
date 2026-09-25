@@ -4,7 +4,6 @@ Editor de texto colaborativo em tempo real com preview em markdown, no estilo do
 
 O usuário informa o nome de uma sala na página inicial e é levado para `/{sala}`. Todos que entrarem na mesma sala editam o mesmo texto ao mesmo tempo, com o markdown renderizado ao lado.
 
-> Projeto acadêmico (Atitus). Em todas as decisões, optamos pelo caminho mais simples.
 
 ## Funcionalidades
 
@@ -23,6 +22,17 @@ O usuário informa o nome de uma sala na página inicial e é levado para `/{sal
 | Cliente | JavaScript puro, HTML e CSS (sem frameworks) |
 | Markdown | [markdown-it](https://github.com/markdown-it/markdown-it), renderizado no cliente |
 | Dependências e ambiente | [uv](https://docs.astral.sh/uv/) |
+
+## Como rodar
+
+Pré-requisito: [uv](https://docs.astral.sh/uv/) instalado (ele baixa o Python 3.14 e as dependências sozinho).
+
+```bash
+uv sync
+uv run main.py
+```
+
+Acesse http://localhost:8080 e informe o nome de uma sala.
 
 ## Rotas
 
