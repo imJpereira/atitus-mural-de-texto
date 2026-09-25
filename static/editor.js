@@ -1,12 +1,18 @@
 const sala = document.body.dataset.room;
 const textarea = document.getElementById("editor");
 const status = document.getElementById("status");
+const preview = document.getElementById("preview");
+const md = window.markdownit();
 const protocolo = location.protocol === "https:" ? "wss:" : "ws:";
 const ESPERA_ENVIO = 150;
 const ESPERA_RECONEXAO = 2000;
 let envioAgendado = null;
 let reconexaoAgendada = null;
 let conexao = null;
+
+function renderPreview() {
+    preview.innerHTML = md.render(textarea.value);
+}
 
 function conectar() {
     if (conexao && (conexao.readyState === WebSocket.CONNECTING || conexao.readyState === WebSocket.OPEN)) {
@@ -28,6 +34,7 @@ function conectar() {
         const dados = JSON.parse(evento.data);
         if (dados.type === "init") {
             textarea.value = dados.text;
+            renderPreview();
             return;
         }
         if (dados.type !== "update") {
@@ -36,6 +43,7 @@ function conectar() {
         const posicao = textarea.selectionStart;
         textarea.value = dados.text;
         textarea.setSelectionRange(posicao, posicao);
+        renderPreview();
     };
 
     conexao.onclose = function () {
@@ -62,6 +70,7 @@ function agendarReconexao() {
 }
 
 textarea.addEventListener("input", function () {
+    renderPreview();
     clearTimeout(envioAgendado);
     envioAgendado = setTimeout(function () {
         if (!conexao || conexao.readyState !== WebSocket.OPEN) {

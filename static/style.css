@@ -222,6 +222,61 @@ button[type="submit"]:focus-visible {
     background: var(--cor-fundo);
 }
 
+.editor-preview h1,
+.editor-preview h2,
+.editor-preview h3 {
+    max-width: none;
+    margin: 0 0 0.6em;
+    line-height: 1.25;
+}
+
+.editor-preview h1 {
+    font-size: 1.6em;
+}
+
+.editor-preview h2 {
+    font-size: 1.3em;
+}
+
+.editor-preview h3 {
+    font-size: 1.1em;
+}
+
+.editor-preview p,
+.editor-preview ul,
+.editor-preview ol,
+.editor-preview blockquote,
+.editor-preview pre {
+    margin: 0 0 0.8em;
+}
+
+.editor-preview ul,
+.editor-preview ol {
+    padding-left: 1.4em;
+}
+
+.editor-preview blockquote {
+    padding-left: 1em;
+    border-left: 3px solid var(--cor-borda);
+    color: var(--cor-ajuda);
+}
+
+.editor-preview code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.9em;
+}
+
+.editor-preview pre {
+    padding: 12px 14px;
+    overflow: auto;
+    background: var(--cor-superficie);
+    border-radius: 6px;
+}
+
+.editor-preview a {
+    color: var(--cor-destaque);
+}
+
 @media (max-width: 640px) {
     .editor-painel {
         flex-direction: column;
