@@ -181,6 +181,12 @@ button[type="submit"]:focus-visible {
     min-height: 0;
 }
 
+.editor-status {
+    margin: 0 0 0 auto;
+    font-size: 13px;
+    color: var(--cor-acao);
+}
+
 .editor-texto,
 .editor-preview {
     flex: 1 1 0;
