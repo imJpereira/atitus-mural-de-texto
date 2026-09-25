@@ -151,6 +151,7 @@ button[type="submit"]:focus-visible {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    overflow: hidden;
 }
 
 .editor-cabecalho {
@@ -174,10 +175,21 @@ button[type="submit"]:focus-visible {
     color: var(--cor-ajuda);
 }
 
-.editor-texto {
+.editor-painel {
+    display: flex;
     flex: 1;
-    width: 100%;
     min-height: 0;
+}
+
+.editor-texto,
+.editor-preview {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 0;
+    overflow: auto;
+}
+
+.editor-texto {
     padding: 30px 34px;
     resize: none;
     border: none;
@@ -196,4 +208,33 @@ button[type="submit"]:focus-visible {
 
 .editor-texto:focus-visible {
     outline: none;
+}
+
+.editor-preview {
+    padding: 30px 34px;
+    border-left: 1px solid var(--cor-borda);
+    background: var(--cor-fundo);
+}
+
+@media (max-width: 640px) {
+    .editor-painel {
+        flex-direction: column;
+    }
+
+    .editor-cabecalho {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .editor-texto {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .editor-preview {
+        padding-left: 24px;
+        padding-right: 24px;
+        border-left: none;
+        border-top: 1px solid var(--cor-borda);
+    }
 }
